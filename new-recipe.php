@@ -4,7 +4,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require 'includes/database.php';
-    $sql = "INSERT INTO article (name, method, time)
+    $sql = "INSERT INTO recipes (name, method, time)
             VALUES ('" . mysqli_escape_string($conn, $_POST['name']) . "','"
                        . mysqli_escape_string($conn, $_POST['method']) . "','"
                        . mysqli_escape_string($conn, $_POST['time']) . "')";
@@ -30,23 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php require 'includes/header.php'; ?>
 
-<h2>New article</h2>
+<h2>New recipe</h2>
 
 <form method='post'>
 
     <div>
-        <label for='title'>Title</label>
-        <input name='title' id='title' placeholder='Article title'>
+        <label for='name'>Recipe</label>
+        <input name='name' id='name' placeholder='Recipe name'>
     </div>
 
     <div>
-        <label for='content'>Content</label>
-        <textarea name='content' rows='4' cols='40' id='content' placeholder='Article content'></textarea>
+        <label for='method'>Method</label>
+        <textarea name='method' rows='4' cols='40' id='method' placeholder='Recipe method'></textarea>
     </div>
 
     <div>
-        <label for='published_at'>Publication date and time</label>
-        <input type='datetime-local' name='published_at' id='published_at'>
+        <label for='time'>Cooking time</label>
+        <input type='time' name='time' id='time'>
     </div>
 
     <button>Add</button>
