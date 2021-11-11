@@ -16,6 +16,9 @@ if ($results === false) {
 
 ?>
 
+<a href='new-recipe.php'><button>Add recipe</button></a>
+
+
 <?php require 'includes/header.php'; ?>
 <?php if (empty($recipes)) : ?>
     <p>No recipes found.</p>

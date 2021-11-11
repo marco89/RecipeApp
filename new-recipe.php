@@ -35,8 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <form method='post'>
 
     <div>
-        <label for='name'>Recipe</label>
+        <label for='name'>Name</label>
         <input name='name' id='name' placeholder='Recipe name'>
+    </div>
+
+    <div>
+        <label for='ingredients'>Ingredients</label>
+        <textarea name='ingredients' rows='4' cols='40' id='ingredients' placeholder='Recipe ingredients'></textarea>
     </div>
 
     <div>
