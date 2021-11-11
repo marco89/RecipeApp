@@ -15,22 +15,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         echo mysqli_error($conn);
     } else {
 
-        $recipe = mysqli_fetch_assoc($results);
+        $recipes = mysqli_fetch_assoc($results);
     }
 } else {
-    $recipe = null;
+    $recipes = null;
 }
 
 ?>
 
 <?php require 'includes/header.php'; ?>
-<?php if ($recipe === null) : ?>
+<?php if ($recipes === null) : ?>
     <p>No recipes found.</p>
 <?php else : ?>
 
     <article>
-        <h2><?= $recipe['name']; ?></h2>
-        <p><?= $recipe['method']; ?></p>
+        <h2><?= $recipes['name']; ?></h2>
+        <p><?= $recipes['method']; ?></p>
     </article>
 
 <?php endif; ?>

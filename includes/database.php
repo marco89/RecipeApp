@@ -1,7 +1,7 @@
 <?php
 
 $db_host = "localhost";
-$db_name = "recipes";
+$db_name = "recipe_app";
 $db_user = "cms_www";
 $db_pass = "ooSgk2)yoWsYj*z8";
 

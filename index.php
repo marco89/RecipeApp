@@ -3,8 +3,16 @@
 require 'includes/database.php';
 
 $sql = "SELECT *
-        FROM article
-        ORDER BY published_at;";
+        FROM recipes
+        ORDER BY time;";
+
+$results = mysqli_query($conn, $sql);
+
+if ($results === false) {
+    echo mysqli_error($conn);
+} else {
+    $recipes = mysqli_fetch_all($results, MYSQLI_ASSOC);
+}
 
 ?>
 
