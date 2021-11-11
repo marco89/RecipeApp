@@ -2,14 +2,14 @@
 <html>
 
 <head>
-    <title>My blog</title>
+    <title>Hungry hippo recipes</title>
     <meta charset="utf-8">
 </head>
 
 <body>
 
     <header>
-        <h1>My blog</h1>
+        <h1>Hungry hippo recipes</h1>
     </header>
 
     <main>
