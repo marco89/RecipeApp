@@ -24,14 +24,32 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 ?>
 
 <?php require 'includes/header.php'; ?>
-<?php if ($recipes === null) : ?>
-    <p>No recipes found.</p>
-<?php else : ?>
+<a href='index.php'><button>Back to main menu</button></a>
+<?php
 
-    <article>
-        <h2><?= $recipes['name']; ?></h2>
-        <p><?= $recipes['method']; ?></p>
-    </article>
+$ret = mysqli_query($conn, "SELECT * FROM recipes");
 
-<?php endif; ?>
+echo "<table border='1'>
+<tr>
+<th>name</th>
+<th>ingredients</th>
+<th>method</th>
+<th>time</th>
+</tr>";
+
+while ($row = mysqli_fetch_array($ret)) {
+    echo "<tr>";
+    echo "<td>" . $row['name'] . "</td>";
+    echo "<td>" . $row['ingredients'] . "</td>";
+    echo "<td>" . $row['method'] . "</td>";
+    echo "<td>" . $row['time'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+
+mysqli_close($conn);
+
+?>
+
+
 <?php require 'includes/footer.php'; ?>

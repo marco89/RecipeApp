@@ -4,8 +4,9 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require 'includes/database.php';
-    $sql = "INSERT INTO recipes (name, method, time)
+    $sql = "INSERT INTO recipes (name, ingredients, method, time)
             VALUES ('" . mysqli_escape_string($conn, $_POST['name']) . "','"
+                       . mysqli_escape_string($conn, $_POST['ingredients']) . "','"
                        . mysqli_escape_string($conn, $_POST['method']) . "','"
                        . mysqli_escape_string($conn, $_POST['time']) . "')";
 
@@ -30,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php require 'includes/header.php'; ?>
 
+<a href='index.php'><button>Back to main menu</button></a>
+
 <h2>New recipe</h2>
 
 <form method='post'>
@@ -51,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div>
         <label for='time'>Cooking time</label>
-        <input type='time' name='time' id='time'>
+        <input type='number' name='time' id='time'>
     </div>
 
     <button>Add</button>
