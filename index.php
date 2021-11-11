@@ -3,8 +3,7 @@
 require 'includes/database.php';
 
 $sql = "SELECT *
-        FROM recipes
-        ORDER BY time;";
+        FROM recipes;";
 
 $results = mysqli_query($conn, $sql);
 
@@ -16,7 +15,7 @@ if ($results === false) {
 
 ?>
 
-<a href='new-recipe.php'><button>Add recipe</button></a>
+<a href='new-recipe.php'><button>Add recipe to database</button></a>
 
 
 <?php require 'includes/header.php'; ?>
@@ -29,7 +28,8 @@ if ($results === false) {
             <li>
                 <article>
                     <h2><a href="recipe.php?id=<?= $recipe['id']; ?>"><?= $recipe['name']; ?></a></h2>
-                    <p><?= $recipe['method']; ?></p>
+                    <p><?= $recipe['ingredients']; ?></p>
+                
                 </article>
             </li>
         <?php endforeach; ?>
@@ -38,3 +38,4 @@ if ($results === false) {
 <?php endif; ?> 
 
 <?php require 'includes/footer.php'; ?>
+
