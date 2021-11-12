@@ -32,7 +32,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 
 $ret = mysqli_query($conn, "SELECT * FROM recipes
-                            WHERE id='6'"); // need to change this number to reflect what the user inputs 
+                            WHERE id= " . $_GET['id']); // need to change this number to reflect what the user inputs 
 
 
 echo "<table border='1'> 
