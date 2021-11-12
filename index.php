@@ -15,8 +15,9 @@ if ($results === false) {
 
 ?>
 
+<img src="images/hippo.png">
+<br>
 <a href='new-recipe.php'><button>Add recipe to database</button></a>
-
 
 <?php require 'includes/header.php'; ?>
 <?php if (empty($recipes)) : ?>
@@ -29,13 +30,12 @@ if ($results === false) {
                 <article>
                     <h2><a href="recipe.php?id=<?= $recipe['id']; ?>"><?= $recipe['name']; ?></a></h2>
                     <p><?= $recipe['ingredients']; ?></p>
-                
+
                 </article>
             </li>
         <?php endforeach; ?>
     </ul>
 
-<?php endif; ?> 
+<?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>
-
