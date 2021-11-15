@@ -7,9 +7,9 @@
 </head> 
 
 <body>
-    
+    <center>
     <header>
         <h1>Hungry hippo recipes</h1>
     </header>
-    
+    </center>
     <main>
