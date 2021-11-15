@@ -2,15 +2,15 @@
 
 require 'includes/database.php';
 
-$sql = "SELECT *
-        FROM recipes;";
+$sql = "SELECT * 
+        FROM recipes;"; // shows all db entries in a blog style form
 
 $results = mysqli_query($conn, $sql);
 
 if ($results === false) {
-    echo mysqli_error($conn);
+    echo mysqli_error($conn); // checks whether db connection is working
 } else {
-    $recipes = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $recipes = mysqli_fetch_all($results, MYSQLI_ASSOC); // if it is working, displays all db entries
 }
 
 ?>
@@ -20,7 +20,7 @@ if ($results === false) {
 </center>
 
 
-<div id ="main" class='shadow-box'><div id='content'>
+<div id ="main" class='shadow-box'><div id='content'> <!-- builds the search box and search button -->
     <center>
     <form action="" method="GET" name="">
         <table>
@@ -31,7 +31,7 @@ if ($results === false) {
         </table>
     </form>
     </center>
-</div></div>
+</div></div> 
 
 <?php
 
@@ -44,13 +44,22 @@ if ($results === false) {
         $query_str = "SELECT * FROM recipes WHERE ";
 
         foreach($searched_words as $s_word){
-            $query_str .= " search_words LIKE '%".$s_word."%' OR "; // appends the user searched terms onto the query string so it is like a reactive string that changes based on the searched terms
+            $query_str .= " searched_words LIKE '%".$s_word."%' OR "; // appends the user searched terms onto the query string so it is like a reactive string that changes based on the searched terms
         }
         $query_str = substr($query_str, 0, strlen($query_str) - 3); // makes a sub string, starts at index 0 and removes 3 chars from length of string
-        echo $query_str;
+        
+        $query = mysqli_query($conn, $query_str); // actually does query of db using db connection and the sql statement var as it's args
+
+        $result_count = mysqli_num_rows($query); // counts how many db entries are returned 
+
+        if($result_count > 0) {
+            echo '<div class = "right"><b><u>'.$result_count.'</u></b></div>'; // prints the result count
+        }
+        else
+            echo 'No recipes found based on your search terms';
     }
     else
-        echo 'no recipes found';
+        echo '';
 
 ?>
 
