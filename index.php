@@ -26,10 +26,6 @@ require 'includes/header.php'; ?>
     </div>
 </div>
 
-<p align="right">
-    <a href='new-recipe.php'><button>Add recipe to database</button></a>
-</p>
-
 <?php
 
 if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a search term is actually entered
@@ -42,7 +38,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a sea
     $query_conditions = array(); // makes empty arr in prep for pushing data too
 
     foreach ($searched_words as $s_word) {
-        $query_conditions[] =  "searched_words LIKE '%" . $s_word . "%'"; // appends the user searched terms onto the query string so it is like a reactive string that changes based on the searched terms
+        $query_conditions[] =  "searched_words LIKE '%".$s_word."%'"; // appends the user searched terms onto the query string so it is like a reactive string that changes based on the searched terms
     }
     $query_str = substr($query_str, 0, strlen($query_str) - 3); // makes a sub string, starts at index 0 and removes 3 chars from length of string
 
@@ -51,7 +47,7 @@ if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a sea
     $result_count = mysqli_num_rows($query); // counts how many db entries are returned 
 
     if ($result_count > 0) {
-        echo '<table class="search">';
+                echo '<table class="search">';
         echo '<div class = "right"><b><u>' . $result_count . ' recipes found.' . '</u></b></div>'; // prints the result count
         while ($row = mysqli_fetch_assoc($query)) {
             echo '<tr>
@@ -66,7 +62,8 @@ if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a sea
         }
         // end the display of the table
         echo '</table>';
-    } else {
+        } 
+    else {
         echo 'No recipes found based on your search terms';
     }
 } else
@@ -74,20 +71,24 @@ if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a sea
 
 ?>
 
+<p align="center">
+    <a href='new-recipe.php'><button>Add recipe to database</button></a>
+</p>
+
 <?php if (empty($recipes)) : ?>
     <p></p>
 
-    <?php $sql = "SELECT * 
+<?php $sql = "SELECT * 
         FROM recipes;"; // shows all db entries in a blog style form
 
-    $results = mysqli_query($conn, $sql);
+$results = mysqli_query($conn, $sql);
 
-    if ($results === false) {
-        echo mysqli_error($conn); // checks whether db connection is working
-    } else {
-        $recipes = mysqli_fetch_all($results, MYSQLI_ASSOC); // if it is working, displays all db entries
-    }
-    ?>
+if ($results === false) {
+    echo mysqli_error($conn); // checks whether db connection is working
+} else {
+    $recipes = mysqli_fetch_all($results, MYSQLI_ASSOC); // if it is working, displays all db entries
+}
+?>
 <?php else : ?>
 
     <ul>
