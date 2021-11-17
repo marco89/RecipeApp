@@ -8,12 +8,7 @@ require 'includes/header.php'; ?>
     <br>
 </center>
 
-<br>
-
-<p align="center">
-    <a href='new-recipe.php'><button>Add recipe to database</button></a>
-</p>
-
+<center>
 <!-- (A) SEARCH FORM -->
 <form onsubmit="return ajsearch();">
     <h1>Recipe search</h1>
@@ -39,7 +34,7 @@ require 'includes/header.php'; ?>
           wrapper.innerHTML = "";
           for (let res of results) {
             let line = document.createElement("div");
-            line.innerHTML = `${res["name"]} - ${res["email"]}`;
+            line.innerHTML = `${res["name"]} - ${res["ingredients"]}`;
             wrapper.appendChild(line);
           }
         } else { wrapper.innerHTML = "No results found"; }
@@ -47,6 +42,12 @@ require 'includes/header.php'; ?>
       return false;
     }
     </script>
+</center>
+
+<p align="center">
+    <a href='new-recipe.php'><button>Add recipe to database</button></a>
+</p>
+
 
 <?php if (empty($recipes)) : ?>
     <p></p>
