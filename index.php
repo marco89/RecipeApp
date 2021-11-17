@@ -10,70 +10,43 @@ require 'includes/header.php'; ?>
 
 <br>
 
-<div id="main" class='shadow-box'>
-    <div id='content'>
-        <!-- builds the search box and search button -->
-        <center>
-            <form action="" method="GET" name="">
-                <table>
-                    <tr>
-                        <td><input type="text" name="search" placeholder="search ingredients" autocomplete="off"></td>
-                        <td><input type="submit" name="" value="Search"></td>
-                    </tr>
-                </table>
-            </form>
-        </center>
-    </div>
-</div>
-
-<?php
-
-if (isset($_GET['search']) && $_GET['search'] != '') { // checks to see if a search term is actually entered
-
-    $search = trim($_GET['search']); // gets rid of whitespace and binds search term to a var
-
-    $searched_words = explode(' ', $search); // splits up a string into an array
-
-    $query_str = "SELECT * FROM recipes WHERE ";
-    $query_conditions = array(); // makes empty arr in prep for pushing data too
-
-    foreach ($searched_words as $s_word) {
-        $query_conditions[] =  "searched_words LIKE '%".$s_word."%'"; // appends the user searched terms onto the query string so it is like a reactive string that changes based on the searched terms
-    }
-    $query_str = substr($query_str, 0, strlen($query_str) - 3); // makes a sub string, starts at index 0 and removes 3 chars from length of string
-
-    $query = mysqli_query($conn, $query_str); // actually does query of db using db connection and the sql statement var as it's args
-
-    $result_count = mysqli_num_rows($query); // counts how many db entries are returned 
-
-    if ($result_count > 0) {
-                echo '<table class="search">';
-        echo '<div class = "right"><b><u>' . $result_count . ' recipes found.' . '</u></b></div>'; // prints the result count
-        while ($row = mysqli_fetch_assoc($query)) {
-            echo '<tr>
-			<td><h3><a href="'.$row['name'].'">'.$row['name'].'</a></h3></td>
-		</tr>
-		<tr>
-			<td>'.$row['ingredients'].'</td>
-		</tr>
-		<tr>
-			<td><i>'.$row['method'].'</i></td>
-		</tr>';
-        }
-        // end the display of the table
-        echo '</table>';
-        } 
-    else {
-        echo 'No recipes found based on your search terms';
-    }
-} else
-    echo '';
-
-?>
-
 <p align="center">
     <a href='new-recipe.php'><button>Add recipe to database</button></a>
 </p>
+
+<!-- (A) SEARCH FORM -->
+<form onsubmit="return ajsearch();">
+    <h1>Recipe search</h1>
+    <input type="text" id="search" required/>
+    <input type="submit" value="Search"/>
+  </form>
+  
+  <!-- (B) SEARCH RESULTS -->
+  <div id="results"></div>
+
+  <script>
+    function ajsearch () {
+      // (A) GET SEARCH TERM
+      var data = new FormData();
+      data.append("search", document.getElementById("search").value);
+      data.append("ajax", 1);
+     
+      // (B) AJAX SEARCH REQUEST
+      fetch("search.php", { method:"POST", body:data })
+      .then(res => res.json()).then((results) => {
+        var wrapper = document.getElementById("results");
+        if (results.length > 0) {
+          wrapper.innerHTML = "";
+          for (let res of results) {
+            let line = document.createElement("div");
+            line.innerHTML = `${res["name"]} - ${res["email"]}`;
+            wrapper.appendChild(line);
+          }
+        } else { wrapper.innerHTML = "No results found"; }
+      });
+      return false;
+    }
+    </script>
 
 <?php if (empty($recipes)) : ?>
     <p></p>
