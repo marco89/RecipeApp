@@ -52,13 +52,13 @@ require 'includes/header.php'; ?>
         // https://www.javascripttutorial.net/javascript-dom/javascript-innerhtml/ information on .innerHTML
           wrapper.innerHTML = "";
           // iterates through each element and 
-          for (let recipe of results) {
+          for (let res of results) {
             // let is limited in scope so the line variable only exists within this for loop 
             // creating a div tag and inside that add the res variable
             // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement info on createElement
-            let recipeDiv = document.createElement("div");
+            let line = document.createElement("div");
             // displays the values of of the results dict which are the things like the name and method
-            recipeDiv.innerHTML = `${recipe["name"]} - ${recipe["ingredients"]} - ${recipe["method"]}`;
+            line.innerHTML = `${res["name"]} - ${res["ingredients"]} - ${res["method"]}`;
             // so div is the parent and you append a child to it (in this case it adds recipeDiv for each loop)
             wrapper.appendChild(line);
           }
