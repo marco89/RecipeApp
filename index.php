@@ -13,6 +13,7 @@ require 'includes/header.php'; ?>
 <form onsubmit="return ajsearch();">
     <h1>Recipe search</h1>
     <!-- search variable to be appended to POST request (what user searches for)-->
+    <!-- the required at the end of this line will display a "please fill in this field" message if the user inputs nothing -->
     <input type="text" id="search" required/> 
     <!-- button functionality, clicking this runs ajsearch script -->
     <input type="submit" value="Search"/> 
@@ -47,12 +48,21 @@ require 'includes/header.php'; ?>
         var wrapper = document.getElementById("results");
         // only displays results if any results are found i.e. more than 0
         if (results.length > 0) {
+        // puts nothing inside the wrapper variable ** wrapper is a div that is identified with 'results' ** 
+        // https://www.javascripttutorial.net/javascript-dom/javascript-innerhtml/ information on .innerHTML
           wrapper.innerHTML = "";
-          for (let res of results) {
-            let line = document.createElement("div");
-            line.innerHTML = `${res["name"]} - ${res["ingredients"]} - ${res["method"]}`;
+          // iterates through each element and 
+          for (let recipe of results) {
+            // let is limited in scope so the line variable only exists within this for loop 
+            // creating a div tag and inside that add the res variable
+            // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement info on createElement
+            let recipeDiv = document.createElement("div");
+            // displays the values of of the results dict which are the things like the name and method
+            recipeDiv.innerHTML = `${recipe["name"]} - ${recipe["ingredients"]} - ${recipe["method"]}`;
+            // so div is the parent and you append a child to it (in this case it adds recipeDiv for each loop)
             wrapper.appendChild(line);
           }
+          // appends the str no results found to the inside of the wrapper variable
         } else { wrapper.innerHTML = "No results found"; }
       });
       return false;
