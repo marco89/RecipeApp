@@ -20,7 +20,7 @@ require 'includes/header.php'; ?>
   </form>
   
   <!-- (B) SEARCH RESULTS -->
-  <!-- this will be added in once you get a response from server -->
+  <!-- this will be added in once you get a response from server  -->
   <div id="results"></div> 
 
   <script> 
