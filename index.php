@@ -12,29 +12,45 @@ require 'includes/header.php'; ?>
 <!-- (A) SEARCH FORM -->
 <form onsubmit="return ajsearch();">
     <h1>Recipe search</h1>
-    <input type="text" id="search" required/>
-    <input type="submit" value="Search"/>
+    <!-- search variable to be appended to POST request (what user searches for)-->
+    <input type="text" id="search" required/> 
+    <!-- button functionality, clicking this runs ajsearch script -->
+    <input type="submit" value="Search"/> 
   </form>
   
   <!-- (B) SEARCH RESULTS -->
-  <div id="results"></div>
+  <!-- this will be added in once you get a response from server -->
+  <div id="results"></div> 
 
-  <script>
+  <script> 
     function ajsearch () {
-      // (A) GET SEARCH TERM
-      var data = new FormData();
-      data.append("search", document.getElementById("search").value);
+      // (A) GET SEARCH TERM - just creates an obj thats a form 
+      // FormData() sends forms through POST requests
+      var data = new FormData(); 
+      // getElementByID returns an element object representing the element whose id property matches the specified string
+      data.append("search", document.getElementById("search").value); 
+      // adds data object which is a form, ready to be filled with data
       data.append("ajax", 1);
      
       // (B) AJAX SEARCH REQUEST
+      // fetch() sends POST request to server with POST and data as it's args
       fetch("search.php", { method:"POST", body:data })
-      .then(res => res.json()).then((results) => {
+      // the then() function applies to the results of fetch()
+      // then() is classed a promise and it makes the script wait until the fetch() request has a response from the server
+      // 'res' is the result that is returned from the server (it's a json file)
+      // => is the arrow function and allows the writing of shorter functions, often on only one line
+      // a json file is the way to structure and format data
+      // the second then on line 44 waits for the file to be converted to a json file
+      // the res functions returns the results var after converting it to a json file
+      .then(res => res.json()).then((results) => { 
+        //  wrapper variable has representation of id=results assigned to it from line 23
         var wrapper = document.getElementById("results");
+        // only displays results if any results are found i.e. more than 0
         if (results.length > 0) {
           wrapper.innerHTML = "";
           for (let res of results) {
             let line = document.createElement("div");
-            line.innerHTML = `${res["name"]} - ${res["ingredients"]}`;
+            line.innerHTML = `${res["name"]} - ${res["ingredients"]} - ${res["method"]}`;
             wrapper.appendChild(line);
           }
         } else { wrapper.innerHTML = "No results found"; }
