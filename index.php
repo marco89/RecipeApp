@@ -57,8 +57,8 @@ require 'includes/header.php'; ?>
             // creating a div tag and inside that add the res variable
             // https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement info on createElement
             let line = document.createElement("div");
-            // displays the values of of the results dict which are the things like the name and method
-            line.innerHTML = `${res["name"]} - ${res["ingredients"]} - ${res["method"]}`;
+            // displays the values of the results 'dict' which are the things like the name and method
+            line.innerHTML = `${res["name"]} - ${res["ingredients"]}`;
             // so div is the parent and you append a child to it (in this case it adds recipeDiv for each loop)
             wrapper.appendChild(line);
           }
